@@ -8,10 +8,13 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import { CssBaseline } from "@mui/material";
+import AppProvider from "./AppProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-        <CssBaseline />
-		<App />
+		<AppProvider>
+			<CssBaseline />
+			<App />
+		</AppProvider>
 	</React.StrictMode>
 );

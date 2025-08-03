@@ -1,20 +1,24 @@
 import {
-    AppBar,
-    Toolbar,
-    Container,
-    Badge,
-    Button,
-    Box,
-    IconButton,
+	AppBar,
+	Toolbar,
+	Container,
+	Badge,
+	Button,
+	Box,
+	IconButton,
 } from "@mui/material";
 
 import {
-    LightMode as LightModeIcon,
-    DarkMode as DarkModeIcon,
+	LightMode as LightModeIcon,
+	DarkMode as DarkModeIcon,
 } from "@mui/icons-material";
 
+import { useApp } from "./AppProvider";
+
 export default function Header({ count, clear }) {
-    return (
+	const { mode, setMode } = useApp();
+
+	return (
 		<AppBar position="static">
 			<Toolbar>
 				<Container
@@ -32,9 +36,15 @@ export default function Header({ count, clear }) {
 						onClick={clear}>
 						Clear
 					</Button>
-					<IconButton color="inherit">
-						<DarkModeIcon />
-					</IconButton>
+					{mode === "dark" ? (
+						<IconButton color="inherit" onClick={() => setMode("light")}>
+							<LightModeIcon />
+						</IconButton>
+					) : (
+						<IconButton color="inherit" onClick={() => setMode("dark")}>
+							<DarkModeIcon />
+						</IconButton>
+					)}
 				</Container>
 			</Toolbar>
 		</AppBar>
