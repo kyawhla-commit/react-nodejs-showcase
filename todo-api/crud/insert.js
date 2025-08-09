@@ -3,15 +3,19 @@ const { PrismaClient } = require("../generated/prisma");
 const prisma = new PrismaClient();
 
 async function main() {
-	const item = await prisma.todo.createMany({
-		data: [
-            { name: "Another thing todo" },
-            { name: "More thing todo" },
-            { name: "Completed todo", done: true },
-        ],
-	});
+    const role = await prisma.role.create({
+        data: {
+            name: "Admin",
+            users: {
+                create: [
+                    { name: "Alice", email: "alice@gmail.com" },
+                    { name: "Bob", email: "bob@gmail.com" },
+                ]
+            }
+        }
+    });
 
-	console.log(item);
+    console.log(role);
 }
 
 main();

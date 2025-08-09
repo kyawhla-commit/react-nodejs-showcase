@@ -16,3 +16,17 @@ model Todo {
     name String
     done Boolean @default(false)
 }
+
+model Role {
+    id    Int    @id @default(autoincrement())
+    name  String
+    users User[]
+}
+
+model User {
+    id     Int    @id @default(autoincrement())
+    name   String
+    email  String
+    roleId Int
+    role   Role   @relation(fields: [roleId], references: [id])
+}
