@@ -20,7 +20,7 @@ app.post("/tasks", async (req, res) => {
 		data: { name },
 	});
 
-	res.json(item);
+	res.status(201).json(item);
 });
 
 app.get('/tasks', async (req, res) => {
@@ -34,6 +34,33 @@ app.get('/tasks/:id', async (req, res) => {
 
     const item = await prisma.todo.findFirst({
         where: { id: Number(id) },
+    });
+
+    res.json(item);
+});
+
+app.put('/tasks/:id/toggle', async (req, res) => {
+    const id = req.params.id;
+
+	const item = await prisma.todo.findFirst({
+		where: { id: Number(id) },
+	});
+
+    const update = await prisma.todo.update({
+        where: { id: Number(id) },
+        data: { done: !item.done },
+    });
+
+    res.json(update);
+});
+
+app.delete('/tasks/:id', async (req, res) => {
+    const id = req.params.id;
+
+    const item = await prisma.todo.delete({
+        where: {
+            id: Number(id),
+        },
     });
 
     res.json(item);
