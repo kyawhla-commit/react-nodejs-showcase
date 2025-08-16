@@ -66,6 +66,14 @@ app.delete('/tasks/:id', async (req, res) => {
     res.json(item);
 });
 
+app.delete('/tasks', async (req, res) => {
+    const result = await prisma.todo.deleteMany({
+        where: { done: true }
+    });
+
+    res.json(result);
+});
+
 app.listen(8800, () => {
     console.log("Todo API running at 8800...");
 });
