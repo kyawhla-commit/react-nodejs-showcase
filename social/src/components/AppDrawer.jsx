@@ -22,7 +22,7 @@ import { useApp } from "../AppProvider";
 import { useNavigate } from "react-router";
 
 export default function AppDrawer() {
-    const { openDrawer, setOpenDrawer } = useApp();
+    const { openDrawer, setOpenDrawer, auth, setAuth } = useApp();
 
     const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ export default function AppDrawer() {
 			open={openDrawer}
 			anchor="left"
 			onClose={() => setOpenDrawer(false)}
-            onClick={() => setOpenDrawer(false)}>
+			onClick={() => setOpenDrawer(false)}>
 			<Box sx={{ width: 250, height: 150, bgcolor: "gray" }}></Box>
 			<List>
 				<ListItem>
@@ -43,38 +43,53 @@ export default function AppDrawer() {
 					</ListItemButton>
 				</ListItem>
 				<Divider />
-				<ListItem>
-					<ListItemButton onClick={() => navigate("/profile")}>
-						<ListItemIcon>
-							<ProfileIcon />
-						</ListItemIcon>
-						<ListItemText primary="Profile" />
-					</ListItemButton>
-				</ListItem>
-				<ListItem>
-					<ListItemButton onClick={() => {}}>
-						<ListItemIcon>
-							<LogoutIcon />
-						</ListItemIcon>
-						<ListItemText primary="Logout" />
-					</ListItemButton>
-				</ListItem>
-				<ListItem>
-					<ListItemButton onClick={() => navigate("/login")}>
-						<ListItemIcon>
-							<LoginIcon />
-						</ListItemIcon>
-						<ListItemText primary="Login" />
-					</ListItemButton>
-				</ListItem>
-				<ListItem>
-					<ListItemButton onClick={() => navigate("/register")}>
-						<ListItemIcon>
-							<RegisterIcon />
-						</ListItemIcon>
-						<ListItemText primary="Register" />
-					</ListItemButton>
-				</ListItem>
+
+				{auth && (
+					<>
+						<ListItem>
+							<ListItemButton
+								onClick={() => navigate("/profile")}>
+								<ListItemIcon>
+									<ProfileIcon />
+								</ListItemIcon>
+								<ListItemText primary="Profile" />
+							</ListItemButton>
+						</ListItem>
+						<ListItem>
+							<ListItemButton onClick={() => {
+                                setAuth(undefined);
+                                navigate("/");
+                            }}>
+								<ListItemIcon>
+									<LogoutIcon />
+								</ListItemIcon>
+								<ListItemText primary="Logout" />
+							</ListItemButton>
+						</ListItem>
+					</>
+				)}
+
+				{!auth && (
+					<>
+						<ListItem>
+							<ListItemButton onClick={() => navigate("/login")}>
+								<ListItemIcon>
+									<LoginIcon />
+								</ListItemIcon>
+								<ListItemText primary="Login" />
+							</ListItemButton>
+						</ListItem>
+						<ListItem>
+							<ListItemButton
+								onClick={() => navigate("/register")}>
+								<ListItemIcon>
+									<RegisterIcon />
+								</ListItemIcon>
+								<ListItemText primary="Register" />
+							</ListItemButton>
+						</ListItem>
+					</>
+				)}
 			</List>
 		</Drawer>
 	);
