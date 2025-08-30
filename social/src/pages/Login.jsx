@@ -1,13 +1,18 @@
-import { Box, OutlinedInput, Typography, Button } from "@mui/material";
+import { useState } from "react";
+
+import { Alert, Box, OutlinedInput, Typography, Button } from "@mui/material";
 
 import { useForm } from "react-hook-form";
 import { useApp } from "../AppProvider";
 import { useNavigate } from "react-router";
 
-export default function Login() {
-    const { setAuth } = useApp();
+const api = "http://localhost:8800";
 
-    const navigate = useNavigate();
+export default function Login() {
+	const { setAuth } = useApp();
+	const [error, setError] = useState();
+
+	const navigate = useNavigate();
 
 	const {
 		register,
@@ -16,9 +21,29 @@ export default function Login() {
 	} = useForm();
 
 	const onSubmit = data => {
-		console.log(data);
-        setAuth({ name: 'Alice' });
-        navigate("/");
+		fetch(`${api}/users/login`, {
+			method: "POST",
+			body: JSON.stringify({
+				username: data.username,
+				password: data.password,
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then(async res => {
+				if (res.status === 200) {
+					const { token, user } = await res.json();
+					localStorage.setItem("token", token);
+					setAuth(user);
+					navigate("/");
+				} else {
+					setError("Invalid username or password");
+				}
+			})
+			.catch(() => {
+				setError("Unable to connect api server");
+			});
 	};
 
 	return (
@@ -28,6 +53,15 @@ export default function Login() {
 				sx={{ mb: 4 }}>
 				Login
 			</Typography>
+
+			{error && (
+				<Alert
+					severity="warning"
+					sx={{ mb: 4 }}>
+					{error}
+				</Alert>
+			)}
+
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<OutlinedInput
 					placeholder="Username"

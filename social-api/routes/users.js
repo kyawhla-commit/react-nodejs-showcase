@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
 			if (await bcrypt.compare(password, user.password)) {
 				const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
 
-				return res.json({ token });
+				return res.json({ token, user });
 			}
 		}
 

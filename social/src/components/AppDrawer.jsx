@@ -5,16 +5,17 @@ import {
 	ListItem,
 	ListItemText,
 	ListItemIcon,
-    ListItemButton,
-    Divider,
+	ListItemButton,
+	Divider,
+	Typography,
 } from "@mui/material";
 
-import { 
-    Home as HomeIcon,
-    AccountCircle as ProfileIcon,
-    Login as LoginIcon,
-    ExitToApp as LogoutIcon,
-    PersonAdd as RegisterIcon,
+import {
+	Home as HomeIcon,
+	AccountCircle as ProfileIcon,
+	Login as LoginIcon,
+	ExitToApp as LogoutIcon,
+	PersonAdd as RegisterIcon,
 } from "@mui/icons-material";
 
 import { useApp } from "../AppProvider";
@@ -22,9 +23,9 @@ import { useApp } from "../AppProvider";
 import { useNavigate } from "react-router";
 
 export default function AppDrawer() {
-    const { openDrawer, setOpenDrawer, auth, setAuth } = useApp();
+	const { openDrawer, setOpenDrawer, auth, setAuth } = useApp();
 
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	return (
 		<Drawer
@@ -32,7 +33,17 @@ export default function AppDrawer() {
 			anchor="left"
 			onClose={() => setOpenDrawer(false)}
 			onClick={() => setOpenDrawer(false)}>
-			<Box sx={{ width: 250, height: 150, bgcolor: "gray" }}></Box>
+			<Box
+				sx={{
+					p: 2,
+					width: 250,
+					height: 150,
+					display: "flex",
+					alignItems: "flex-end",
+					bgcolor: auth ? "green" : "gray",
+				}}>
+				{auth && <Typography variant="h5">{auth.name}</Typography>}
+			</Box>
 			<List>
 				<ListItem>
 					<ListItemButton onClick={() => navigate("/")}>
@@ -56,10 +67,12 @@ export default function AppDrawer() {
 							</ListItemButton>
 						</ListItem>
 						<ListItem>
-							<ListItemButton onClick={() => {
-                                setAuth(undefined);
-                                navigate("/");
-                            }}>
+							<ListItemButton
+								onClick={() => {
+									setAuth(undefined);
+									localStorage.removeItem("token");
+									navigate("/");
+								}}>
 								<ListItemIcon>
 									<LogoutIcon />
 								</ListItemIcon>
