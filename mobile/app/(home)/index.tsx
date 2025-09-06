@@ -1,14 +1,50 @@
-import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import Post from "@/components/post";
+import { useQuery } from "@tanstack/react-query";
+import { ScrollView, Text, View } from "react-native";
+
+import type { PostType } from "@/types/AppTypes";
 
 export default function Index() {
-	return (
-		<View
-			style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-			<Text style={{ fontSize: 24, fontWeight: "bold" }}>Home</Text>
-			<View style={{ marginTop: 20 }}>
-				<Link href="/view/123">View 123</Link>
+    const { data: posts, isLoading, error } = useQuery({
+        queryKey: ["posts"],
+        queryFn: async (): Promise<PostType[]> => {
+            const res = await fetch("http://192.168.1.2:8800/posts");
+            return res.json();
+        }
+    });
+
+    if(isLoading) {
+        return <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <Text>Loading...</Text>
+        </View>;
+    }
+
+    if(error) {
+        return (
+			<View style={{ flex: 1, alignItems: "center", justifyContent: "center", }}>
+				<Text>{error.message}</Text>
 			</View>
-		</View>
+		);
+    }
+
+    if(!posts) {
+        return (
+			<View
+				style={{
+					flex: 1,
+					alignItems: "center",
+					justifyContent: "center",
+				}}>
+				<Text>No post available</Text>
+			</View>
+		);
+    }
+
+	return (
+		<ScrollView>
+			{posts.map(post => {
+                return <Post key={post.id} post={post} />
+            })}
+		</ScrollView>
 	);
 }
