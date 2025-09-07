@@ -8,7 +8,7 @@ export default function Index() {
     const { data: posts, isLoading, error } = useQuery({
         queryKey: ["posts"],
         queryFn: async (): Promise<PostType[]> => {
-            const res = await fetch("http://192.168.1.2:8800/posts");
+            const res = await fetch("http://192.168.1.5:8800/posts");
             return res.json();
         }
     });

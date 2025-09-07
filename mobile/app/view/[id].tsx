@@ -12,7 +12,7 @@ export default function ViewPost() {
     const { data: post, isLoading, error } = useQuery({
         queryKey: ["posts", id],
         queryFn: async (): Promise<PostType> => {
-            const res = await fetch(`http://192.168.1.2:8800/posts/${id}`);
+            const res = await fetch(`http://192.168.1.5:8800/posts/${id}`);
             return res.json();
         }
     });
