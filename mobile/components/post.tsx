@@ -3,8 +3,43 @@ import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import type { PostType } from "@/types/AppTypes";
+import { queryClient } from "@/app/_layout";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Post({ post }: { post: PostType }) {
+    const { token, user } = useAuth();
+
+    const isLiked = post.postLikes.some(like => like.userId === user?.id);
+    
+    const handleLike = async (postId: number) => {
+        const res = await fetch(`http://192.168.1.5:8800/posts/${postId}/like`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
+
+        if (res.ok) {
+			queryClient.invalidateQueries({ queryKey: ["posts"] });
+		}
+    };
+
+    const handleUnlike = async (postId: number) => {
+        const res = await fetch(
+			`http://192.168.1.5:8800/posts/${postId}/unlike`,
+			{
+				method: "PUT",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+
+		if (res.ok) {
+			queryClient.invalidateQueries({ queryKey: ["posts"] });
+		}
+    };
+
     return (
 		<View style={styles.postCard}>
 			<View style={styles.avatar}></View>
@@ -33,14 +68,26 @@ export default function Post({ post }: { post: PostType }) {
 							gap: 5,
 							alignItems: "center",
 						}}>
-						<TouchableOpacity>
-							<Ionicons
-								name="heart-outline"
-								color="red"
-								size={24}
-							/>
-						</TouchableOpacity>
-						<Text>0</Text>
+						
+                        {isLiked ? (
+                            <TouchableOpacity onPress={() => handleUnlike(post.id)}>
+                                <Ionicons
+                                    name="heart"
+                                    color="red"
+                                    size={24}
+                                />
+                            </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity onPress={() => handleLike(post.id)}>
+                                <Ionicons
+                                    name="heart-outline"
+                                    color="red"
+                                    size={24}
+                                />
+                            </TouchableOpacity>
+                        )}
+
+						<Text>{post.postLikes.length}</Text>
 					</View>
 					<View
 						style={{
@@ -55,7 +102,7 @@ export default function Post({ post }: { post: PostType }) {
 								size={24}
 							/>
 						</TouchableOpacity>
-						<Text>5</Text>
+						<Text>{post.comments.length}</Text>
 					</View>
 				</View>
 			</View>

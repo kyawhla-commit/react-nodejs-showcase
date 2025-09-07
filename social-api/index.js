@@ -20,6 +20,7 @@ app.get("/posts", async (req, res) => {
 		include: {
 			user: true,
 			comments: true,
+			postLikes: true,
 		},
 		take: 20,
 	});
@@ -35,6 +36,7 @@ app.get("/posts/:id", async (req, res) => {
 				include: { user: true },
 			},
 			user: true,
+			postLikes: true,
 		},
 		where: { id: Number(id) },
 	});
@@ -73,6 +75,28 @@ app.delete("/posts/:id", auth, async (req, res) => {
 	});
 
 	res.json(post);
+});
+
+app.put("/posts/:id/like", auth, async (req, res) => {
+	const postId = req.params.id;
+	const userId = req.user.id;
+
+	const like = await prisma.postLike.create({
+		data: { postId: Number(postId), userId: Number(userId) },
+	});
+
+	res.json(like);
+});
+
+app.put("/posts/:id/unlike", auth, async (req, res) => {
+	const postId = req.params.id;
+	const userId = req.user.id;
+
+	const unlike = await prisma.postLike.deleteMany({
+		where: { postId: Number(postId), userId: Number(userId) }
+	});
+
+	res.json(unlike);
 });
 
 app.listen(8800, () => {

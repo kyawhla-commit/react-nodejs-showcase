@@ -9,14 +9,57 @@ import {
 	Button,
 } from "@mui/material";
 import {
+	Favorite as FilledLikeIcon,
 	FavoriteBorder as LikeIcon,
 	ChatBubbleOutlineOutlined as CommentIcon,
     DeleteOutline as DeleteIcon,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router";
+import { useApp } from "../AppProvider";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Post({ post }) {
 	const navigate = useNavigate();
+	const { user } = useApp();
+	const queryClient = useQueryClient();
+
+	const isLiked = post.postLikes?.some(like => like.userId === user?.id);
+
+	const handleLike = async () => {
+		try {
+			const token = localStorage.getItem("token");
+			const res = await fetch(`http://localhost:8800/posts/${post.id}/like`, {
+				method: "PUT",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+
+			if (res.ok) {
+				queryClient.invalidateQueries({ queryKey: ["posts"] });
+			}
+		} catch (err) {
+			console.error("Error liking post:", err);
+		}
+	};
+
+	const handleUnlike = async () => {
+		try {
+			const token = localStorage.getItem("token");
+			const res = await fetch(`http://localhost:8800/posts/${post.id}/unlike`, {
+				method: "PUT",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+
+			if (res.ok) {
+				queryClient.invalidateQueries({ queryKey: ["posts"] });
+			}
+		} catch (err) {
+			console.error("Error unliking post:", err);
+		}
+	};
 
 	return (
 		<Card sx={{ mb: 2 }}>
@@ -56,13 +99,17 @@ export default function Post({ post }) {
 						mt: 2,
 					}}>
 					<ButtonGroup>
-						<IconButton>
-							<LikeIcon color="error" />
+						<IconButton onClick={isLiked ? handleUnlike : handleLike}>
+							{isLiked ? (
+								<FilledLikeIcon color="error" />
+							) : (
+								<LikeIcon color="error" />
+							)}
 						</IconButton>
 						<Button
 							variant="text"
 							size="sm">
-							0
+							{post.postLikes?.length || 0}
 						</Button>
 					</ButtonGroup>
 					<ButtonGroup>
