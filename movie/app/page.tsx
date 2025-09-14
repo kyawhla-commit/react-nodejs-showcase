@@ -1,11 +1,17 @@
-type MovieType = {
-	id: number;
-	title: string;
-	backdrop_path: string;
-	overview: string;
-	poster_path: string;
-	release_date: string;
-};
+import Movie from "@/components/movie";
+import type { MovieType } from "@/types/global";
+
+async function fetchPopular(): Promise<MovieType[]> {
+	const res = await fetch("https://api.themoviedb.org/3/movie/popular", {
+		headers: {
+			Authorization: `Bearer ${process.env.TMDB_KEY}`,
+		},
+	});
+
+	const data = await res.json();
+
+	return data.results;
+}
 
 async function fetchTrending(): Promise<MovieType[]> {
 	const res = await fetch("https://api.themoviedb.org/3/trending/movie/week", {
@@ -21,19 +27,34 @@ async function fetchTrending(): Promise<MovieType[]> {
 
 export default async function Home() {
     const trending = await fetchTrending();
-
-    const poster = "http://image.tmdb.org/t/p/w185";
+    const popular = await fetchPopular();
 
 	return (
 		<div>
-			<h2 className="text-lg font-bold mb-4 pb-2 border-b">Trending this week</h2>
+			<h2 className="text-lg font-bold mb-4 pb-2 border-b">
+				Trending this week
+			</h2>
 			<div className="flex gap-2 flex-wrap">
 				{trending.map(movie => {
 					return (
-						<div key={movie.id} className="flex flex-col gap-1 text-center w-[185px] mb-4">
-							<img src={poster + movie.poster_path} />
-							<b className="text-wrap">{movie.title}</b>
-						</div>
+						<Movie
+							key={movie.id}
+							movie={movie}
+						/>
+					);
+				})}
+			</div>
+
+			<h2 className="text-lg font-bold my-4 pb-2 border-b">
+				Popular
+			</h2>
+			<div className="flex gap-2 flex-wrap">
+				{popular.map(movie => {
+					return (
+						<Movie
+							key={movie.id}
+							movie={movie}
+						/>
 					);
 				})}
 			</div>
