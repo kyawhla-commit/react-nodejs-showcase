@@ -1,4 +1,5 @@
 import { MovieType, PersonType } from "@/types/global";
+import Link from "next/link";
 
 async function fetchMovie(id: number): Promise<MovieType> {
 	const res = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
@@ -59,8 +60,10 @@ export default async function Movie({
 							) : (
 								<div className="h-[280px] bg-gray-300"></div>
 							)}
-                            
-							<b>{person.name}</b>
+
+							<Link href={`/person/${person.id}`}>
+								<b>{person.name}</b>
+							</Link>
 							<div className="text-sm text-gray-600">
 								{person.character}
 							</div>
