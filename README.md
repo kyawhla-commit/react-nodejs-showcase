@@ -1,19 +1,55 @@
 # PWD (Portfolio Web Development) Workspace
 
-[![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
-[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.0.8-646CFF.svg)](https://vitejs.dev/)
-[![Express.js](https://img.shields.io/badge/Express.js-5.1.0-black.svg)](https://expressjs.com/)
-[![Prisma](https://img.shields.io/badge/Prisma-6.13.0-2D3748.svg)](https://prisma.io/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791.svg)](https://postgresql.org/)
-[![SQLite](https://img.shields.io/badge/SQLite-3.40+-003B57.svg)](https://sqlite.org/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://docker.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6.svg)](https://typescriptlang.org/)
-[![ESLint](https://img.shields.io/badge/ESLint-8.55.0-4B32C3.svg)](https://eslint.org/)
+<div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/your-username/pwd-workspace)
-[![Made with ❤️](https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F-red.svg)](#)
+### 🚀 **Modern Full-Stack Development Portfolio**
+
+[![Tech Stack](https://img.shields.io/badge/Tech%20Stack-Full--Stack-informational?style=for-the-badge&logo=visual-studio-code)](https://github.com/your-username/pwd-workspace)
+[![Build Status](https://img.shields.io/badge/Build-Passing-success?style=for-the-badge&logo=github-actions)](https://github.com/your-username/pwd-workspace/actions)
+[![Version](https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge&logo=github)](https://github.com/your-username/pwd-workspace/releases)
+
+</div>
+
+---
+
+## 🛠 **Technologies & Tools**
+
+<div align="center">
+
+### **Frontend Ecosystem**
+[![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.0.8-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org/)
+
+### **Backend & Database**
+[![Node.js](https://img.shields.io/badge/Node.js-16+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-5.1.0-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-6.13.0-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://prisma.io/)
+
+### **Databases**
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://postgresql.org/)
+[![SQLite](https://img.shields.io/badge/SQLite-3.40+-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org/)
+
+### **DevOps & Tools**
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com/)
+[![ESLint](https://img.shields.io/badge/ESLint-8.55.0-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)](https://eslint.org/)
+[![Nodemon](https://img.shields.io/badge/Nodemon-3.1.10-76D04B?style=for-the-badge&logo=nodemon&logoColor=white)](https://nodemon.io/)
+
+---
+
+### **Project Status**
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge&logo=opensourceinitiative&logoColor=black)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge&logo=github&logoColor=white)](https://github.com/your-username/pwd-workspace)
+[![Made with ❤️](https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F-red?style=for-the-badge&logo=heart&logoColor=white)](#)
+[![Last Commit](https://img.shields.io/badge/Last%20Commit-Recent-orange?style=for-the-badge&logo=git&logoColor=white)](https://github.com/your-username/pwd-workspace/commits)
+
+</div>
+
+---
+
+<div align="center">
+  <strong>💡 Ready to explore modern web development? Let's dive in! 🚀</strong>
+</div>
 
 > A comprehensive full-stack web development portfolio showcasing modern technologies, best practices, and scalable application architectures.
 
